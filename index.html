@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analyzer</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        
+        /* ... (rest of the CSS remains the same) */
+        textarea {
+            width: 300px; /* Fixed width */
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sentiment Analyzer</h1>
+        <p>Discover the mood behind your words!</p>
+    </header>
+    <main>
+        <section id="demo">
+            <h2>Analyze Your Text</h2>
+            <textarea id="user-input" placeholder="Enter your text here..."></textarea>
+            <button onclick="analyzeSentiment()">Analyze Sentiment</button>
+            <div id="result"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Patan Armaan Khan. All rights reserved.</p>
+    </footer>
+    <script>
+        function analyzeSentiment() {
+            const text = document.getElementById('user-input').value;
+            const result = document.getElementById('result');
+            if (text.trim() === '') {
+                result.innerHTML = 'Please enter some text to analyze.';
+                result.style.backgroundColor = '#f8d7da';
+                result.style.color = '#721c24';
+                return;
+            }
+            // Basic sentiment analysis algorithm
+            const positiveWords = ['good', 'great', 'excellent', 'happy', 'wonderful'];
+            const negativeWords = ['bad', 'terrible', 'awful', 'sad', 'horrible'];
+            let sentiment = 0;
+            const words = text.toLowerCase().split(' ');
+            words.forEach(word => {
+                if (positiveWords.includes(word)) {
+                    sentiment++;
+                } else if (negativeWords.includes(word)) {
+                    sentiment--;
+                }
+            });
+            let analysis, backgroundColor, color;
+            if (sentiment > 0) {
+                analysis = 'Positive';
+                backgroundColor = '#d4edda';
+                color = '#155724';
+            } else if (sentiment < 0) {
+                analysis = 'Negative';
+                backgroundColor = '#f8d7da';
+                color = '#721c24';
+            } else {
+                analysis = 'Neutral';
+                backgroundColor = '#fff3cd';
+                color = '#856404';
+            }
+            result.innerHTML = `Sentiment Analysis: ${analysis}`;
+            result.style.backgroundColor = backgroundColor;
+            result.style.color = color;
+        }
+    </script>
+</body>
+</html>
